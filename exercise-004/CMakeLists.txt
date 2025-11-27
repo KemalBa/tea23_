@@ -14,6 +14,8 @@ find_package(fmt REQUIRED)
 find_package(nlohmann_json REQUIRED)
 find_package(CLI11 CONFIG REQUIRED)
 find_package(Catch2 3 REQUIRED)
+find_package(OpenCV REQUIRED core imgcodecs imgproc)
+
 
 configure_file("${CMAKE_CURRENT_SOURCE_DIR}/config.h.in" "${CMAKE_CURRENT_BINARY_DIR}/include/config.h" @ONLY)
 include_directories("${CMAKE_CURRENT_BINARY_DIR}/include") # add the output path to the include PATH
@@ -43,5 +45,8 @@ add_executable(${PROJECT_NAME} main.cpp ${GENERATED_HEADER_PATH})
 add_dependencies(${PROJECT_NAME} generate_image_header)
 # Add libraries
 target_link_libraries(${PROJECT_NAME} PRIVATE
-                                        fmt::fmt
+                                        fmt::fmt#
+                                        opencv_core
+                                        opencv_imgcodecs
+                                        opencv_imgproc
                                         CLI11::CLI11)

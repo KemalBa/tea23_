@@ -1,5 +1,7 @@
 #include <fmt/chrono.h>
 #include <fmt/format.h>
+#include "graveyard.h"
+
 
 /* .bss Segment */
 int foo;
@@ -7,7 +9,9 @@ int foo2 = 0;
 
 /* .data Segment */
 int data = 45;
-int data2 = 43;
+int data2 = 43; 
+int undead = 7;
+
 
 /* .rodata Segment */
 const int rodata = 45;
@@ -48,7 +52,74 @@ auto main(int argc, char** argv) -> int
      * More info at https://fmt.dev/latest/api.html
      */
     fmt::print("Hello, {}!\n", argv[0]);
+    /** Aufgabe 1)
+     * Frage 1: a)
+     * Frage 2: b)
+     * Frage 3: a) 
+     * Frage 4: a)
+     */
 
+    /** Aufgabe 2)
+     * Beispiel 1)
+     * Was passiert technisch? 
+     * Funktionsaufruf für Anzahl an SOULS; 
+     * In Funktion wird einem char Pointer jedes mal Speicher zugewiesen;
+     * Dann wird der Wert in dem der Pointer steht beschrieben -> dann ausgegeben;
+     * In Main aufgerufen
+     * Welcher Fluch entsteht? 
+     * Der Speicher wird nie frei gegeben.
+     * Wie kann man ihn bannen? 
+     * Mit der free() Funktion direkt nach der Ausgabe 
+     * 
+     * Beispiel 2)
+     * Was passiert technisch?
+     * Im Main wird einem Pointer Speicher zugewiesen.
+     * Dann wird der Wert der im Pointer steht beschrieben; 
+     * dann gelöscht dann ausgegeben
+     * Welcher Fluch entsteht?
+     * Ich gebe dem Speicher frei -> es steht was drin, was ich nicht erwarte
+     * Wie kann man ihn bannen?
+     * speicher nach dem ausgeben freigeben
+     * Was passiert, wenn Sie anschließend erneut Speicher allokieren?
+     * Es zeigt vielleicht auf die gleiche Adresse
+     * 
+     * Beispiel 3)
+     * Was passiert technisch?
+     * Es wird unendlich oft 1024 byte Speicher zugewiesen.
+     * Welcher Fluch entsteht?
+     * Stack overflow / es crashed
+     * Wie kann man ihn bannen?
+     * Speicher freigeben, es nicht unendlich machen
+     */
+
+    /** Aufgabe 4)
+     * Wann tritt ein Stack Overflow auf?
+     *  Wenn der Aufrufstack eines Programms die Größe des dafür vorgesehen Speicherbereichs überschreitet.
+     * Warum entstehen Memory Leaks?
+     *  Wenn Programme reservierten SPeicher nicht wieder freigeben, nachdem er nicht mehr benötigt wird.
+     * Was ist gefährlicher: Ein Zombie-Pointer oder ein Leak?
+     *  Leak ist schlimmer, da auch andere Speicherbereiche verändert werden können
+     * Wie kann man solche Fehler frühzeitig erkennen?
+     *  Code lesen können und verstehen
+     */
+
+
+    /** Aufgabe 5)
+     * Wann tritt ein Stack Overflow auf?
+     *  Wenn der Aufrufstack eines Programms die Größe des dafür vorgesehen Speicherbereichs überschreitet.
+     * Warum entstehen Memory Leaks?
+     *  Wenn Programme reservierten SPeicher nicht wieder freigeben, nachdem er nicht mehr benötigt wird.
+     * Was ist gefährlicher: Ein Zombie-Pointer oder ein Leak?
+     *  Leak ist schlimmer, da auch andere Speicherbereiche verändert werden können
+     * Wie kann man solche Fehler frühzeitig erkennen?
+     *  Code lesen können und verstehen
+     */
+
+
+     /** Aufgabe 6)
+     * Wie unterscheiden sich die Adressen der drei undead- Variablen?
+     * 
+     */
     doSomething(42);
     int bar = 42;
     doSomething(bar);
@@ -79,5 +150,13 @@ auto main(int argc, char** argv) -> int
     fmt::print("Value of var {} address of var {}\n", var, fmt::ptr(&var));
     fmt::print("Value of var2 {} address of var2 {}\n", var2, fmt::ptr(&var2));
 
+
+    fmt::println("🪦 Globale Variable sagt: {}", undead);
+    awaken();
+    persistent();
+    persistent();
+    fmt::println("🪦 Globale Variable nach Aufruf: {}", undead);
+
     return 0; /* exit gracefully*/
+
 }
